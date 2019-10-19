@@ -4,9 +4,7 @@ var Lens = require("lens/reader");
 var panels = Lens.getDefaultPanels();
   
 // All available converters
-var LensConverter = require("lens/converter");
 var IngentaConverter = require("./ingenta_converter");
-var ElifeConverter = require("lens/converter/elife_converter");
 
 // Custom Panels
 // -------------------
