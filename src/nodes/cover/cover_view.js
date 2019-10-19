@@ -16,9 +16,8 @@ CustomCoverView.Prototype = function() {
     var introEl = $$('.intro.container', {
       children: [
         $$('.intro-text', {
-          html: '<i class="icon-info"></i>&nbsp;&nbsp;<b>Lens</b> provides a novel way of viewing research'
+          html: '<i class="icon-info"></i>Back to normal view'
         }),
-        $$('a.send-feedback', {href: "mailto:feeback@example.com", text: "Send feedback", target: "_blank" })
       ]
     });
 
