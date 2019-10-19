@@ -49,19 +49,10 @@ IngentaConverter.Prototype = function() {
       return [baseURL, url].join('');
     } else {
       // Use special URL resolving for production articles
-      var xmlDoc = state.xmlDoc;
-      var urlFrag = xmlDoc.querySelector("front").querySelector("volume");
-      if(xmlDoc.querySelector("issue")){
-        urlFrag = xmlDoc.querySelector("front").querySelector("volume").textContent + '/' + xmlDoc.querySelector("front").querySelector("issue").textContent;
-      } else {
-        urlFrag = xmlDoc.querySelector("article-id[pub-id-type='doi']").textContent;
-      }
       var baseDocserver = state.options.docserverPath;
-      if(!baseDocserver.match(/http:\/\//)) {
-        baseDocserver = 'https://microbiologyresearch.org' + baseDocserver
-      }
+      
       return [
-        baseDocserver + "/" + urlFrag + "/",
+        baseDocserver,
         url.replace('tif','gif')
       ].join('');
     }

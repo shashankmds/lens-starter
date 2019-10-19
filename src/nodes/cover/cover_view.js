@@ -11,12 +11,13 @@ CustomCoverView.Prototype = function() {
     CoverView.prototype.render.call(this);
 
     var refUrl = encodeURIComponent(window.location.href);
+    var titleUrl = window.location.href.replace('/sidebyside','')
 
     // Add feeback info
     var introEl = $$('.intro.container', {
       children: [
         $$('.intro-text', {
-          html: '<i class="icon-info"></i>Back to normal view'
+          html: '<i class="icon-info"></i><a href="'+titleUrl+'">Back to normal view</a>'
         }),
       ]
     });
