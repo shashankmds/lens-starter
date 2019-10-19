@@ -5,7 +5,7 @@ var panels = Lens.getDefaultPanels();
   
 // All available converters
 var LensConverter = require("lens/converter");
-var CustomConverter = require("./custom_converter");
+var IngentaConverter = require("./ingenta_converter");
 var ElifeConverter = require("lens/converter/elife_converter");
 
 // Custom Panels
@@ -40,9 +40,7 @@ LensApp.Prototype = function() {
 
   this.getConverters = function(converterOptions) {
     return [
-      new CustomConverter(converterOptions),
-      new ElifeConverter(converterOptions),
-      new LensConverter(converterOptions)
+      new IngentaConverter(converterOptions),
     ]
   };
 

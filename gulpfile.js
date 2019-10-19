@@ -8,22 +8,24 @@ var rename = require('gulp-rename');
 var through2 = require('through2');
 var path = require('path');
 
-gulp.task('assets', function() {
+const assets = function(cb) {
   gulp.src('assets/**/*', {base:"./assets"})
         .pipe(gulp.dest('dist'));
 
   gulp.src('data/**/*', {base:"."})
         .pipe(gulp.dest('dist'));
-});
+cb();
+};
 
-gulp.task('sass', function () {
+const sass1 = function (cb) {
   gulp.src('./lens.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(rename('lens.css'))
     .pipe(gulp.dest('./dist'));
-});
+cb();
+};
 
-gulp.task('browserify', function () {
+const browserifyt = function () {
     return gulp.src('./boot.js')
         .pipe(through2.obj(function (file, enc, next) {
             browserify(file.path)
@@ -40,6 +42,6 @@ gulp.task('browserify', function () {
         .pipe(uglify())
         .pipe(rename('lens.js'))
         .pipe(gulp.dest('./dist'));
-});
+};
 
-gulp.task('default', ['assets', 'sass', 'browserify']);
+gulp.task('default', gulp.series(assets, sass1, browserifyt));

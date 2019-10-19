@@ -5,15 +5,16 @@ var LensConverter = require('lens/converter');
 var LensArticle = require("lens/article");
 var CustomNodeTypes = require("./nodes");
 
-var CustomConverter = function(options) {
+var IngentaConverter = function(options) {
   LensConverter.call(this, options);
 };
 
-CustomConverter.Prototype = function() {
+IngentaConverter.Prototype = function() {
 
   this.test = function(xmlDoc) {
-    var publisherName = xmlDoc.querySelector("publisher-name").textContent;
-    return publisherName === "My Journal";
+    return true;     // returning true as we always want this converter being used.
+//    var publisherName = xmlDoc.querySelector("publisher-name").textContent;
+//    return publisherName === "Microbiology Society";
   };
 
   // Override document factory so we can create a customized Lens article,
@@ -49,27 +50,16 @@ CustomConverter.Prototype = function() {
     } else {
       // Use special URL resolving for production articles
       return [
-        "http://cdn.elifesciences.org/elife-articles/",
-        state.doc.id,
-        "/jpg/",
-        url,
-        ".jpg"
+        "https://www.microbiologyresearch.org/docserver/fulltext/mgen/5/8/",
+        url.replace('tif','gif')
       ].join('');
     }
   };
 
-  this.enhanceVideo = function(state, node, element) {
-    var href = element.getAttribute("xlink:href").split(".");
-    var name = href[0];
-    node.url = "http://api.elifesciences.org/v2/articles/"+state.doc.id+"/media/file/"+name+".mp4";
-    node.url_ogv = "http://api.elifesciences.org/v2/articles/"+state.doc.id+"/media/file//"+name+".ogv";
-    node.url_webm = "http://api.elifesciences.org/v2/articles/"+state.doc.id+"/media/file//"+name+".webm";
-    node.poster = "http://api.elifesciences.org/v2/articles/"+state.doc.id+"/media/file/"+name+".jpg";
-  };
 };
 
-CustomConverter.Prototype.prototype = LensConverter.prototype;
-CustomConverter.prototype = new CustomConverter.Prototype();
-CustomConverter.prototype.constructor = CustomConverter;
+IngentaConverter.Prototype.prototype = LensConverter.prototype;
+IngentaConverter.prototype = new IngentaConverter.Prototype();
+IngentaConverter.prototype.constructor = IngentaConverter;
 
-module.exports = CustomConverter;
+module.exports = IngentaConverter;
